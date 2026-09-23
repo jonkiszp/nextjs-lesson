@@ -7,7 +7,15 @@ export default () => {
 
     const submitCal = useCallback((event: any) => {
         event.preventDefault();
-        console.log(login, password);
+        fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "login": login, "password": password })
+        }).then(res => res.json()).then(data => {
+            console.log(data);
+        });
         return false;
     }, [login, password]);
 
