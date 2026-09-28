@@ -1,29 +1,18 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useActionState, useCallback, useEffect, useState } from "react";
+import { login } from "./action/auth";
 
 export default () => {
-    const [login, setLogin] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
-    const submitCal = useCallback((event: any) => {
-        event.preventDefault();
-        fetch("/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ "login": login, "password": password })
-        }).then(res => res.json()).then(data => {
-            console.log(data);
-        });
-        return false;
-    }, [login, password]);
+    // const [login, setLogin] = useState<string>("");
+    // const [password, setPassword] = useState<string>("");
+    const [error, formAction, pending] = useActionState(login, undefined);
 
     return (
-        <form onSubmit={submitCal}>
-            <input onChange={(e) => setLogin(e.target.value)} type="text" placeholder="Login" />
-            <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Hasło" />
-            <input type="submit" value="Wyślij" />
+        <form action={formAction}>
+            <input name="login" type="text" placeholder="Login" />
+            <input name="password" type="password" placeholder="Hasło" />
+            <button disabled={pending} type="submit">Wyślij</button>
+            {error && <span>{error}</span>}
         </form>
     );
 }
