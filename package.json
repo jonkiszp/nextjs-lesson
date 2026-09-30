@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docs": "typedoc"
   },
   "dependencies": {
     "jose": "^6.2.12",
@@ -22,6 +23,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
+    "typedoc": "^0.28.20",
     "typescript": "^5"
   }
 }

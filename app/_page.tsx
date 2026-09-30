@@ -25,7 +25,6 @@ export default () => {
 
   useEffect(() => {
     if (ref.current !== null) {
-      ref.current.appendChild(document.createElement('div'));
     }
   }, [ref]);
 

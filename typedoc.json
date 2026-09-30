@@ -1,0 +1,20 @@
+{
+    "$schema": "https://typedoc.org",
+    "entryPoints": [
+        "app",
+        "components",
+        "lib"
+    ],
+    "entryPointStrategy": "expand",
+    "out": "docs",
+    "exclude": [
+        "**/*.js",
+        "**/*.config.*",
+        "node_modules",
+        ".next"
+    ],
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "cleanOutputDir": true,
+    "searchInComments": true
+}
