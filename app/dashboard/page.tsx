@@ -7,12 +7,12 @@ const Dashboard = async () => {
     const session = token ? await verifySession(token!) : null;
 
     if (!session) {
-        redirect('/');
+        redirect('/?test=true');
     }
 
     return (
         <>
-            <div>Panel główny</div>
+            <div>Dashboard Me</div>
             <div>{String(session.userId)}</div>
         </>
     );
