@@ -1,6 +1,6 @@
-import { verifySession } from "@/lib/session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { verifySession } from "@/lib/session";
 
 const Dashboard = async () => {
     const token = (await cookies()).get('session')?.value;
@@ -12,7 +12,7 @@ const Dashboard = async () => {
 
     return (
         <>
-            <div>Dashboard</div>
+            <div>Panel główny</div>
             <div>{String(session.userId)}</div>
         </>
     );
