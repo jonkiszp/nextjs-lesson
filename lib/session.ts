@@ -3,6 +3,10 @@ import { cookies } from 'next/headers';
 
 const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET);
 
+/**
+ * Tworzy sesje użytkownika w cookies o nazwie "session"
+ * @param userId Id użytkownika
+ */
 export async function createSession(userId: string) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 dni
 
@@ -22,6 +26,11 @@ export async function createSession(userId: string) {
     });
 }
 
+/**
+ * Weryfikuje token użytkownika w cookies o nazwie "session"
+ * @param token Token użytkownika
+ * @returns Sesja z danymi użytkownika lub null
+ */
 export async function verifySession(token: string) {
     try {
         const { payload } = await jwtVerify(token, SECRET_KEY);
@@ -31,6 +40,9 @@ export async function verifySession(token: string) {
     }
 }
 
+/**
+ * Usuwa sesje użytkownika z cookies o nazwie "session"
+ */
 export async function deleteSession() {
     const cookieStore = await cookies();
     cookieStore.delete('session');
