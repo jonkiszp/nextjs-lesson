@@ -1,4 +1,4 @@
-export default (props: { children: React.ReactNode }) => {
+const Cube = (props: { children: React.ReactNode }) => {
     const { children } = props;
     return (
         <div className="" style={{ width: 200, height: 200, backgroundColor: "red" }}>
@@ -6,3 +6,5 @@ export default (props: { children: React.ReactNode }) => {
         </div>
     );
 }
+
+export default Cube;
