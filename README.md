@@ -14,23 +14,11 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Cel: poczuć, jak działa useState i dlaczego aktualizacja funkcyjna ma znaczenie. Strona: app/licznik/page.tsx → /licznik.
+1. Wyświetl licznik (start: 0) i przyciski „−”, „+” oraz „Reset”.
+2. Dodaj pole <input type="number"> z krokiem (domyślnie 1). Przyciski „+” i „−” zmieniają licznik o krok.
+3. Licznik nie schodzi poniżej zera: 2 − 5 daje 0, a przy zerze przycisk „−” jest wyłączony.
+4. Dodaj przycisk „+3 razy”, który trzy razy z rzędu wywołuje tę samą funkcję dodającą. Licznik ma wzrosnąć o 3 × krok.
+Wskazówki:
+• Wartość z pola to tekst, więc zamień ją przez Number(e.target.value).
+• Punkt 4 zadziała tylko z aktualizacją funkcyjną setCount(c => c + step). Najpierw spróbuj setCount(count + step) i wyjaśnij, czemu licznik rośnie wtedy tylko o jeden krok.
