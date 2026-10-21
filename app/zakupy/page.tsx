@@ -1,15 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Zakupy() {
     const [produkty, setProdukty] = useState(['aaa', 'bbb', 'ccc']);
+    const [name, setName] = useState('');
+
+    const handleName = (event: any) => {
+        setName(event.target.value);
+    }
 
     const handleDodaj = (event: any) => {
-        if (event.target.value == '') { 
-            return;
+        if (name !== '') {
+            setProdukty([...produkty, name]);
+            setName('');
         }
-        setProdukty([...produkty, event.target.value]);
     }
 
     const handleEnter = (event: any) => {
@@ -24,12 +29,15 @@ export default function Zakupy() {
 
     return (
         <>
-            <input name="product" onKeyDown={handleEnter} />
+            <input name="product" onChange={handleName} onKeyDown={handleEnter} />
             <button onClick={handleDodaj}>Dodaj</button>
             {produkty.map((produkt, index) => {
                 return (
                     <div key={`lista_produktow_${index}`}>
-                        <p>{produkt}</p>
+                        <label>Kupione: </label>
+                        <input type="checkbox" name="kupione" />
+                        {produkt}
+                        <br />
                         <button onClick={() => handleUsun(index)}>Usuń</button>
                     </div>
                 )
