@@ -1,10 +1,32 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 export default function Zakupy() {
     const [produkty, setProdukty] = useState(['aaa', 'bbb', 'ccc']);
+    const [ilosc, setIlosc] = useState([1, 1, 1]);
+    const [kupione, setKupione] = useState([false, false, false]);
     const [name, setName] = useState('');
+    const [filter, setFilter] = useState('wszystkie');
+
+    const listaProduktow = useMemo(() => {
+        return produkty.map((produkt, index) => {
+            return {
+                id: index,
+                name: produkt,
+                qty: ilosc[index],
+                done: kupione[index]
+            }
+        }).filter((item) => {
+            if (filter === 'wszystkie') {
+                return true;
+            } else if (filter === 'do kupienia') {
+                return !item.done;
+            } else if (filter === 'kupione') {
+                return item.done;
+            }
+        })
+    }, [produkty, ilosc, kupione, filter]);
 
     const handleName = (event: any) => {
         setName(event.target.value);
@@ -13,6 +35,8 @@ export default function Zakupy() {
     const handleDodaj = (event: any) => {
         if (name !== '') {
             setProdukty([...produkty, name]);
+            setIlosc([...ilosc, 1]);
+            setKupione([...kupione, false]);
             setName('');
         }
     }
@@ -25,18 +49,34 @@ export default function Zakupy() {
 
     const handleUsun = (index: number) => {
         setProdukty(produkty.filter((produkt, _index) => _index !== index));
+        setIlosc(ilosc.filter((ilosc, _index) => _index !== index));
+        setKupione(kupione.filter((kupione, _index) => _index !== index))
+    }
+
+    const handleKupione = (index: number) => {
+        setKupione(kupione.map((kupione, _index) => _index === index ? !kupione : kupione))
     }
 
     return (
         <>
             <input name="product" onChange={handleName} onKeyDown={handleEnter} />
             <button onClick={handleDodaj}>Dodaj</button>
-            {produkty.map((produkt, index) => {
+            {listaProduktow.map((produkt, index) => {
                 return (
                     <div key={`lista_produktow_${index}`}>
                         <label>Kupione: </label>
-                        <input type="checkbox" name="kupione" />
-                        {produkt}
+                        <span>Ilość: {produkt.qty}</span>
+                        <button onClick={
+                            () => setIlosc(ilosc.map((ilosc, _index) =>
+                                _index === index ? ilosc + 1 : ilosc))}
+                        >+</button>
+                        <button onClick={() => setIlosc(ilosc.map((ilosc, _index) => _index === index ? ilosc - 1 : ilosc))}>-</button>
+                        <input type="checkbox"
+                            name="kupione"
+                            defaultChecked={kupione[index]}
+                            onChange={(e) => { handleKupione(index) }}
+                        />
+                        {produkt.name}
                         <br />
                         <button onClick={() => handleUsun(index)}>Usuń</button>
                     </div>
