@@ -59,26 +59,31 @@ export default function Zakupy() {
 
     return (
         <>
+            <select onChange={(event) => setFilter(event.target.value)}>
+                <option value="wszystkie">Wszystkie</option>
+                <option value="do kupienia">Do kupienia</option>
+                <option value="kupione">Kupione</option>
+            </select>
             <input name="product" onChange={handleName} onKeyDown={handleEnter} />
             <button onClick={handleDodaj}>Dodaj</button>
             {listaProduktow.map((produkt, index) => {
                 return (
-                    <div key={`lista_produktow_${index}`}>
+                    <div key={`lista_produktow_${produkt.id}`}>
                         <label>Kupione: </label>
                         <span>Ilość: {produkt.qty}</span>
                         <button onClick={
                             () => setIlosc(ilosc.map((ilosc, _index) =>
-                                _index === index ? ilosc + 1 : ilosc))}
+                                _index === produkt.id ? ilosc + 1 : ilosc))}
                         >+</button>
-                        <button onClick={() => setIlosc(ilosc.map((ilosc, _index) => _index === index ? ilosc - 1 : ilosc))}>-</button>
+                        <button onClick={() => setIlosc(ilosc.map((ilosc, _index) => _index === produkt.id ? ilosc - 1 : ilosc))}>-</button>
                         <input type="checkbox"
                             name="kupione"
-                            defaultChecked={kupione[index]}
-                            onChange={(e) => { handleKupione(index) }}
+                            checked={produkt.done}
+                            onChange={() => { handleKupione(produkt.id) }}
                         />
                         {produkt.name}
                         <br />
-                        <button onClick={() => handleUsun(index)}>Usuń</button>
+                        <button onClick={() => handleUsun(produkt.id)}>Usuń</button>
                     </div>
                 )
             })}
