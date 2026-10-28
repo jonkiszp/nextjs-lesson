@@ -13,3 +13,6 @@ pnpm dev
 # or
 bun dev
 ```
+
+1. Stworzyć ścieżke notes/page.tsx i dodac tam notatki
+2. Stworzyć formularz który pozwoli dodawać notatki i wypisać notatki pod spodem
