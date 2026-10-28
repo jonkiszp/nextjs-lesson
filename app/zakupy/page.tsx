@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { v7 as uuidv7 } from 'uuid';
 
 export default function Zakupy() {
     const [produkty, setProdukty] = useState(['aaa', 'bbb', 'ccc']);
@@ -57,8 +58,10 @@ export default function Zakupy() {
         setKupione(kupione.map((kupione, _index) => _index === index ? !kupione : kupione))
     }
 
+    // 9aa149ea-6b5c-45c5-84ab-9eeee28831cc
     return (
         <>
+            <div>{uuidv7()}</div>
             <select onChange={(event) => setFilter(event.target.value)}>
                 <option value="wszystkie">Wszystkie</option>
                 <option value="do kupienia">Do kupienia</option>
@@ -87,6 +90,12 @@ export default function Zakupy() {
                     </div>
                 )
             })}
+            <div>
+                Podsumowanie: {listaProduktow.filter((produkt) => {
+                    if (produkt.done) return true;
+                }).reduce((suma, produkt) => suma + produkt.qty, 0)}
+                /{listaProduktow.length}
+            </div>
         </>
     )
 }
