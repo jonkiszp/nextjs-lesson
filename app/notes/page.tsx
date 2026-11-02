@@ -22,7 +22,7 @@ export default () => {
             </form>
             <div>
                 {notes.map((note, index) => (
-                    <p key={`notes_${index}`}>{note}</p>
+                    <p className='note' key={`notes_${index}`}>{note}</p>
                 ))}
             </div>
         </div>
