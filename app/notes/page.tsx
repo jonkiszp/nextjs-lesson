@@ -17,7 +17,7 @@ export default () => {
         <div>
             <h1>notes</h1>
             <form onSubmit={handleSubmit}>
-                <input name="note" className="border border-gray-300 rounded px-2 py-1" type="text" />
+                <input name="note" placeholder="textbox" className="border border-gray-300 rounded px-2 py-1" type="text" />
                 <button className="border border-gray-300 rounded px-2 py-1" type="submit">Dodaj notatke</button>
             </form>
             <div>
