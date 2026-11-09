@@ -42,4 +42,29 @@ describe('input fill', () => {
         expect(screen.getByText('nowa notatka')).toBeInTheDocument();
         expect(input).toHaveValue('');
     });
+
+    it('submits the form and adds a new note with problem', () => {
+        render(<Page />);
+        const input = screen.getByRole('textbox');
+        const button = screen.getByRole('button', { name: 'Dodaj notatke' });
+
+        // spacje są wymagane gdyż w kodzie jest trim
+        fireEvent.change(input, { target: { value: ' nowa notatka ' } });
+        fireEvent.submit(button, { target: { note: input } });
+
+        expect(screen.getByText('nowa notatka')).toBeInTheDocument();
+        expect(input).toHaveValue('');
+    });
+
+    it('check add whitespace', () => {
+        render(<Page />);
+        const input = screen.getByRole('textbox');
+        const button = screen.getByRole('button', { name: 'Dodaj notatke' });
+
+        fireEvent.change(input, { target: { value: '   ' } });
+        fireEvent.submit(button, { target: { note: input } });
+
+        expect(screen.getByText('nowa notatka')).toBeInTheDocument();
+        expect(input).toHaveValue('');
+    })
 });
