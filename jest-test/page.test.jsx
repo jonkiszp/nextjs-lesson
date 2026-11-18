@@ -56,7 +56,7 @@ describe('input fill', () => {
         expect(input).toHaveValue('');
     });
 
-    it('check add whitespace', () => {
+    it('check add whitespace shows popup and allows closing it', () => {
         render(<Page />);
         const input = screen.getByRole('textbox');
         const button = screen.getByRole('button', { name: 'Dodaj notatke' });
@@ -64,7 +64,14 @@ describe('input fill', () => {
         fireEvent.change(input, { target: { value: '   ' } });
         fireEvent.submit(button, { target: { note: input } });
 
-        expect(screen.getByText('nowa notatka')).toBeInTheDocument();
-        expect(input).toHaveValue('');
-    })
+        // Sprawdzenie czy popup się pojawił
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
+        expect(screen.getByText('Notatka nie może być pusta!')).toBeInTheDocument();
+
+        // Zamknięcie popupu przyciskiem "Zamknij"
+        const closeButton = screen.getByRole('button', { name: 'Zamknij' });
+        fireEvent.click(closeButton);
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
 });
